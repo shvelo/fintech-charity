@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Fintech Charity</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_username">მომხმარებლის სახელი</string>
+    <string name="prompt_password">პაროლი</string>
+    <string name="action_sign_in">შესვლა</string>
+    <string name="action_sign_in_short">შესვლა</string>
+    <string name="error_incorrect_password">პაროლი არასწორია</string>
+    <string name="error_field_required">ველის შევსება სავალდებულოა</string>
+    <string name="action_settings">პარამეტრები</string>
+    <string name="action_next">შემდეგ</string>
+    <string name="action_back">უკან</string>
+</resources>
