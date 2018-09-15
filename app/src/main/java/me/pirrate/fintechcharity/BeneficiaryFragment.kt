@@ -4,9 +4,13 @@ import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import me.pirrate.fintechcharity.api.models.Beneficiary
 
 
 class BeneficiaryFragment : Fragment() {
@@ -18,8 +22,19 @@ class BeneficiaryFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_beneficiary, container, false)
+        val layout = inflater.inflate(R.layout.fragment_beneficiary, container, false)
+        val buttomButton = layout.findViewById<Button>(R.id.buttomButton)
+        val beneficiaryAdapter = BeneficiaryAdapter(PrototypeHelpers.getBeneficiaries())
+        val beneficiaryList = layout.findViewById<RecyclerView>(R.id.beneficiaryList)
+
+        beneficiaryList.adapter = beneficiaryAdapter
+        beneficiaryList.layoutManager = LinearLayoutManager(context)
+
+        beneficiaryAdapter.onItemSelectedListener = {
+            buttomButton.isEnabled = true
+        }
+
+        return layout
     }
 
     fun onButtonPressed(uri: Uri) {

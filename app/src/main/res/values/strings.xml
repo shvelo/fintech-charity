@@ -11,4 +11,5 @@
     <string name="action_settings">პარამეტრები</string>
     <string name="action_next">შემდეგ</string>
     <string name="action_back">უკან</string>
+    <string name="select_beneficiary">ბენეფიციარის არჩევა</string>
 </resources>

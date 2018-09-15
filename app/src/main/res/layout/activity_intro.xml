@@ -13,29 +13,4 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <Button
-            android:textSize="20sp"
-            android:padding="15dp"
-            style="@style/AppTheme.BottomButton"
-            android:enabled="false"
-            android:text="@string/action_back"
-            android:id="@+id/button1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
-        <Button
-            android:textSize="20sp"
-            android:padding="15dp"
-            android:enabled="false"
-            android:text="@string/action_next"
-            style="@style/AppTheme.BottomButton.Colored"
-            android:id="@+id/button2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
-    </LinearLayout>
 </LinearLayout>
