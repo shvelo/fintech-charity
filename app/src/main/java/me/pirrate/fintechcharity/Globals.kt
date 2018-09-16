@@ -2,7 +2,9 @@ package me.pirrate.fintechcharity
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
 import me.pirrate.fintechcharity.api.models.Beneficiary
+import me.pirrate.fintechcharity.api.models.ClientDetails
 import me.pirrate.fintechcharity.api.models.PaymentScheme
 import me.pirrate.fintechcharity.api.models.UserDetails
 
@@ -11,6 +13,7 @@ object Globals {
 
     var sessionId: String? = null
     var userDetails: UserDetails? = null
+    var clientdetails: ClientDetails? = null
     var beneficiary: Beneficiary? = null
     var paymentScheme: PaymentScheme? = null
     var firstRun = true
@@ -51,6 +54,8 @@ object Globals {
         if (sharedPrefs == null)
             sharedPrefs = context?.getSharedPreferences("globals", Context.MODE_PRIVATE)
 
+        Log.d("Globals", sharedPrefs?.all?.toString())
+
         firstRun = sharedPrefs!!.getBoolean("firstRun", true)
         active = sharedPrefs!!.getBoolean("active", false)
         sessionId = sharedPrefs!!.getString("sessionId", null)
@@ -79,6 +84,7 @@ object Globals {
         userDetails = null
         beneficiary = null
         paymentScheme = null
+        clientdetails = null
         firstRun = true
         active = false
 

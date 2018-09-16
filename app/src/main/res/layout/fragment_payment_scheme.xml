@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:animateLayoutChanges="true"
+    android:orientation="vertical"
     tools:context=".BeneficiaryFragment">
 
     <android.support.v7.widget.Toolbar
@@ -24,64 +24,88 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:animateLayoutChanges="true">
+
         <RadioButton
             android:id="@+id/selectPercentage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="15dp"
             android:paddingBottom="15dp"
+            android:paddingTop="15dp"
             android:text="@string/payment_scheme_percentage"
             android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:text="გადახდილი თანხის %" />
 
         <LinearLayout
             android:id="@+id/formPercentage"
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:visibility="gone"
             tools:visibility="visible">
 
-            <SeekBar
-                android:id="@+id/seekBar3"
-                style="@style/Widget.AppCompat.SeekBar.Discrete"
+            <EditText
+                android:id="@+id/inputPercentage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:max="10"
-                android:progress="3" />
+                android:ems="10"
+                android:inputType="number"
+                android:text="10" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="@string/labelUpperLimit" />
+
+            <EditText
+                android:id="@+id/inputUpperLimit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="number" />
         </LinearLayout>
 
         <RadioButton
             android:id="@+id/selectRound"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="15dp"
             android:paddingBottom="15dp"
+            android:paddingTop="15dp"
             android:text="@string/payment_scheme_round"
             android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:text="დამრგვალება უახლოეს თანხამდე" />
-
-        <LinearLayout
+        <RadioGroup
             android:id="@+id/formRound"
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            tools:visibility="visible"/>
+            android:orientation="horizontal"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+
+            <RadioButton
+                android:id="@+id/selectRound1"
+                android:checked="true"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingBottom="15dp"
+                android:paddingTop="15dp"
+                android:text="@string/selectRound1"
+                android:textSize="20sp" />
+
+
+            <RadioButton
+                android:id="@+id/selectRound5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingBottom="15dp"
+                android:paddingTop="15dp"
+                android:text="@string/selectRound5"
+                android:textSize="20sp" />
+        </RadioGroup>
     </RadioGroup>
 
     <Button

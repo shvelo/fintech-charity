@@ -2,8 +2,7 @@ package me.pirrate.fintechcharity
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity;
-
+import android.support.v7.app.AppCompatActivity
 import me.pirrate.fintechcharity.api.models.Beneficiary
 import me.pirrate.fintechcharity.api.models.PaymentScheme
 
@@ -57,6 +56,7 @@ class MainActivity : AppCompatActivity(),
 
     fun activate() {
         Globals.active = true
+        Globals.firstRun = false
         Globals.save(this)
     }
 
@@ -68,12 +68,14 @@ class MainActivity : AppCompatActivity(),
     private fun changePaymentScheme() {
         supportFragmentManager.beginTransaction()
                 .replace(R.id.contentFrame, PaymentSchemeFragment.forPaymentScheme(Globals.paymentScheme))
+                .addToBackStack(null)
                 .commit()
     }
 
     private fun changeBeneficiary() {
         supportFragmentManager.beginTransaction()
                 .replace(R.id.contentFrame, BeneficiaryFragment.forBeneficiary(Globals.beneficiary))
+                .addToBackStack(null)
                 .commit()
     }
 }

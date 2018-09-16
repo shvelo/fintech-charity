@@ -15,6 +15,8 @@ import me.pirrate.fintechcharity.api.models.Beneficiary
 class BeneficiaryFragment : Fragment() {
     private var listener: OnFragmentInteractionListener? = null
     private var selectedBeneficiary: Beneficiary? = null
+    private var beneficiaryAdapter: BeneficiaryAdapter? = null
+    private var bottomButton: Button? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,27 +25,41 @@ class BeneficiaryFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val layout = inflater.inflate(R.layout.fragment_beneficiary, container, false)
-        val bottomButton = layout.findViewById<Button>(R.id.buttomButton)
-        val beneficiaryAdapter = BeneficiaryAdapter(PrototypeHelpers.getBeneficiaries())
+        bottomButton = layout.findViewById<Button>(R.id.buttomButton)
+        beneficiaryAdapter = BeneficiaryAdapter(PrototypeHelpers.getBeneficiaries())
         val beneficiaryList = layout.findViewById<RecyclerView>(R.id.beneficiaryList)
 
         beneficiaryList.adapter = beneficiaryAdapter
         beneficiaryList.layoutManager = LinearLayoutManager(context)
 
-        beneficiaryAdapter.onItemSelectedListener = {
+        beneficiaryAdapter?.onItemSelectedListener = {
             selectedBeneficiary = it
-            bottomButton.isEnabled = true
+            bottomButton?.isEnabled = true
         }
 
-        bottomButton.setOnClickListener {
+        bottomButton?.setOnClickListener {
             onButtonPressed()
         }
 
         return layout
     }
 
-    fun setBeneficiary(beneficiary: Beneficiary) {
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
 
+        if(selectedBeneficiary != null)
+            setBeneficiary(selectedBeneficiary!!)
+    }
+
+    fun setBeneficiary(beneficiary: Beneficiary) {
+        selectedBeneficiary = beneficiary
+        if(beneficiaryAdapter != null) {
+            val index = beneficiaryAdapter?.dataset?.indexOf(beneficiary)
+            beneficiaryAdapter?.selected = index!!
+            beneficiaryAdapter?.notifyItemChanged(index)
+        }
+
+        bottomButton?.isEnabled = true
     }
 
     fun onButtonPressed() {

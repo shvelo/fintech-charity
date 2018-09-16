@@ -3,11 +3,13 @@ package me.pirrate.fintechcharity
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.LinearLayout
+import android.widget.EditText
 import android.widget.RadioButton
 import me.pirrate.fintechcharity.api.models.PaymentScheme
 
@@ -21,6 +23,16 @@ class PaymentSchemeFragment : Fragment() {
     private var listener: OnFragmentInteractionListener? = null
     private var selectedPaymentScheme: PaymentScheme = PaymentScheme(null, -1, -1)
 
+    private var bottomButton: Button? = null
+    private var selectPercentage: RadioButton? = null
+    private var selectRound: RadioButton? = null
+    private var selectRound1: RadioButton? = null
+    private var selectRound5: RadioButton? = null
+    private var formRound: ViewGroup? = null
+    private var formPercentage: ViewGroup? = null
+    private var inputPercentage: EditText? = null
+    private var inputUpperLimit: EditText? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -29,41 +41,114 @@ class PaymentSchemeFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val layout = inflater.inflate(R.layout.fragment_payment_scheme, container, false)
-        val bottomButton = layout.findViewById<Button>(R.id.buttomButton)
-        val selectPercentage = layout.findViewById<RadioButton>(R.id.selectPercentage)
-        val selectRound = layout.findViewById<RadioButton>(R.id.selectRound)
-        val formRound = layout.findViewById<LinearLayout>(R.id.formRound)
-        val formPercentage = layout.findViewById<LinearLayout>(R.id.formPercentage)
+        bottomButton = layout.findViewById(R.id.buttomButton)
+        selectPercentage = layout.findViewById(R.id.selectPercentage)
+        selectRound = layout.findViewById(R.id.selectRound)
+        selectRound1 = layout.findViewById(R.id.selectRound1)
+        selectRound5 = layout.findViewById(R.id.selectRound5)
+        formRound = layout.findViewById(R.id.formRound)
+        formPercentage = layout.findViewById(R.id.formPercentage)
+        inputPercentage = layout.findViewById(R.id.inputPercentage)
+        inputUpperLimit = layout.findViewById(R.id.inputUpperLimit)
 
-        selectPercentage.setOnCheckedChangeListener { _, checked ->
+        selectPercentage?.setOnCheckedChangeListener { _, checked ->
             if (checked) {
-                bottomButton.isEnabled = true
-                selectedPaymentScheme.type = PaymentScheme.TYPE_PERCENTAGE
-                formPercentage.visibility = View.VISIBLE
-            } else {
-                formPercentage.visibility = View.GONE
+                percentageSelected()
             }
         }
 
-        selectRound.setOnCheckedChangeListener { _, checked ->
+        selectRound?.setOnCheckedChangeListener { _, checked ->
             if (checked) {
-                bottomButton.isEnabled = true
-                selectedPaymentScheme.type = PaymentScheme.TYPE_ROUND
-                formRound.visibility = View.VISIBLE
-            } else {
-                formRound.visibility = View.GONE
+                roundSelected()
             }
         }
 
-        bottomButton.setOnClickListener {
+        selectRound1?.setOnCheckedChangeListener { _, checked ->
+            if (checked) {
+                selectedPaymentScheme.value = 1
+            }
+        }
+        selectRound5?.setOnCheckedChangeListener { _, checked ->
+            if (checked) {
+                selectedPaymentScheme.value = 5
+            }
+        }
+
+        inputPercentage?.addTextChangedListener(object: TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                selectedPaymentScheme.value = s.toString().toInt()
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {            }
+        })
+        inputUpperLimit?.addTextChangedListener(object: TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                selectedPaymentScheme.upperLimit = s.toString().toInt()
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {            }
+        })
+
+        bottomButton?.setOnClickListener {
             onButtonPressed()
         }
 
         return layout
     }
 
-    fun setPaymentScheme(paymentScheme: PaymentScheme) {
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
 
+        setPaymentScheme(selectedPaymentScheme)
+    }
+
+    fun roundSelected() {
+        formRound?.visibility = View.VISIBLE
+        formPercentage?.visibility = View.GONE
+        selectedPaymentScheme.type = PaymentScheme.TYPE_ROUND
+        bottomButton?.isEnabled = true
+
+        if (selectedPaymentScheme.value == 1) {
+            selectRound1?.isChecked = true
+        } else if (selectedPaymentScheme.value == 5) {
+            selectRound5?.isChecked = true
+        } else {
+            selectedPaymentScheme.value = 1
+            selectRound1?.isChecked = true
+        }
+    }
+
+    fun percentageSelected() {
+        selectedPaymentScheme.type = PaymentScheme.TYPE_PERCENTAGE
+        formPercentage?.visibility = View.VISIBLE
+        formRound?.visibility = View.GONE
+        bottomButton?.isEnabled = true
+
+        if (selectedPaymentScheme.value == -1) {
+            selectedPaymentScheme.value = 10
+        } else {
+            inputPercentage?.setText(selectedPaymentScheme.value.toString())
+        }
+
+        if (selectedPaymentScheme.upperLimit != -1) {
+            inputUpperLimit?.setText(selectedPaymentScheme.upperLimit.toString())
+        }
+    }
+
+    fun setPaymentScheme(paymentScheme: PaymentScheme) {
+        selectedPaymentScheme = paymentScheme
+
+        if (paymentScheme.type == PaymentScheme.TYPE_PERCENTAGE) {
+            selectPercentage?.isChecked = true
+            percentageSelected()
+        } else if (paymentScheme.type == PaymentScheme.TYPE_ROUND) {
+            selectRound?.isChecked = true
+            roundSelected()
+        }
     }
 
     fun onButtonPressed() {
@@ -87,7 +172,6 @@ class PaymentSchemeFragment : Fragment() {
     interface OnFragmentInteractionListener {
         fun onFragmentInteraction(paymentScheme: PaymentScheme)
     }
-
 
     companion object {
         fun forPaymentScheme(paymentScheme: PaymentScheme?): PaymentSchemeFragment {

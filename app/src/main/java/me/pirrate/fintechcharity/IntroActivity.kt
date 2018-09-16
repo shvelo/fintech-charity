@@ -1,5 +1,6 @@
 package me.pirrate.fintechcharity
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import me.pirrate.fintechcharity.api.models.Beneficiary
@@ -19,12 +20,17 @@ class IntroActivity : AppCompatActivity(), BeneficiaryFragment.OnFragmentInterac
     }
 
     override fun onFragmentInteraction(beneficiary: Beneficiary) {
+        Globals.beneficiary = beneficiary
+
         supportFragmentManager.beginTransaction()
                 .replace(R.id.contentFrame, paymentSchemeFragment)
                 .commit()
     }
 
     override fun onFragmentInteraction(paymentScheme: PaymentScheme) {
+        Globals.paymentScheme = paymentScheme
 
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
     }
 }

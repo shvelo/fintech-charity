@@ -6,7 +6,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
@@ -40,6 +39,9 @@ class LoginActivity : AppCompatActivity() {
         })
 
         sign_in_button.setOnClickListener { attemptLogin() }
+
+        if (Globals.sessionId != null)
+            loginComplete()
     }
 
 
@@ -100,7 +102,8 @@ class LoginActivity : AppCompatActivity() {
                     runOnUiThread {
                         showProgress(false)
                         if (response?.isSuccessful == true) {
-                            Globals.sessionId = response.body()?.SessionId
+                            // Workaround for session ids
+                            Globals.sessionId = response.body()?.SessionId?.split('.')?.get(0)
                             Globals.userDetails = response.body()?.UserDetails
                             Globals.save(this@LoginActivity)
                             loginComplete()

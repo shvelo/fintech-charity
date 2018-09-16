@@ -11,10 +11,19 @@
     <string name="action_back">უკან</string>
     <string name="select_beneficiary">ბენეფიციარის არჩევა</string>
     <string name="select_payment_scheme">გადახდის სქემის არჩევა</string>
-    <string name="payment_scheme_percentage">პროცენტული</string>
+    <string name="payment_scheme_percentage">გადახდილი თანხის %</string>
     <string name="payment_scheme_round">დამრგვალება</string>
     <string name="title_activity_main">ინფორმაცია</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello">გამარჯობა, %1$s</string>
+    <string name="logout">გასვლა</string>
+    <string name="selectedPaymentScheme">არჩეული გადახდის სქემა:</string>
+    <string name="selectedBeneficiary">არჩეული ბენეფიციარი:</string>
+    <string name="paymentScheme_percentage">გადახდილი თანხის %1$d პროცენტი</string>
+    <string name="paymentScheme_percentage_withLimit">გადახდილი თანხის %1$d%, %2$d ლარამდე</string>
+    <string name="paymentScheme_round">თანხის დამრგვალება %1$d ლარამდე</string>
+    <string name="labelPercentage">გადახდილი თანხის %</string>
+    <string name="labelUpperLimit">ზედა ზღვარი</string>
+    <string name="selectRound1">1 ლარამდე</string>
+    <string name="selectRound5">5 ლარამდე</string>
+    <string name="action_save">შენახვა</string>
 </resources>
