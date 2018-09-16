@@ -42,6 +42,10 @@ class BeneficiaryFragment : Fragment() {
         return layout
     }
 
+    fun setBeneficiary(beneficiary: Beneficiary) {
+
+    }
+
     fun onButtonPressed() {
         if (selectedBeneficiary != null)
             listener?.onFragmentInteraction(selectedBeneficiary!!)
@@ -63,5 +67,14 @@ class BeneficiaryFragment : Fragment() {
 
     interface OnFragmentInteractionListener {
         fun onFragmentInteraction(beneficiary: Beneficiary)
+    }
+
+    companion object {
+        fun forBeneficiary(beneficiary: Beneficiary?): BeneficiaryFragment {
+            val fragment = BeneficiaryFragment()
+            if (beneficiary != null)
+                fragment.setBeneficiary(beneficiary)
+            return fragment
+        }
     }
 }

@@ -102,9 +102,8 @@ class LoginActivity : AppCompatActivity() {
                         if (response?.isSuccessful == true) {
                             Globals.sessionId = response.body()?.SessionId
                             Globals.userDetails = response.body()?.UserDetails
-                            Log.d("LoginActivity", response.body()?.toString())
-                            startActivity(Intent(this@LoginActivity, IntroActivity::class.java))
-                            finish()
+                            Globals.save(this@LoginActivity)
+                            loginComplete()
                         } else {
                             password_field.error = getString(R.string.error_incorrect_password)
                             password_field.requestFocus()
@@ -113,6 +112,16 @@ class LoginActivity : AppCompatActivity() {
                 }
             })
         }
+    }
+
+    fun loginComplete() {
+        if(Globals.firstRun) {
+            startActivity(Intent(this, IntroActivity::class.java))
+        } else {
+            startActivity(Intent(this, MainActivity::class.java))
+        }
+
+        finish()
     }
 
     /**
@@ -141,8 +150,5 @@ class LoginActivity : AppCompatActivity() {
                     }
                 })
 
-    }
-
-    companion object {
     }
 }

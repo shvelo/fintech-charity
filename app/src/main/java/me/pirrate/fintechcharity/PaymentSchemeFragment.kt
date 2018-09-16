@@ -1,7 +1,6 @@
 package me.pirrate.fintechcharity
 
 import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -20,7 +19,7 @@ import me.pirrate.fintechcharity.api.models.PaymentScheme
  */
 class PaymentSchemeFragment : Fragment() {
     private var listener: OnFragmentInteractionListener? = null
-    private var paymentScheme: PaymentScheme = PaymentScheme(null, null, null)
+    private var selectedPaymentScheme: PaymentScheme = PaymentScheme(null, -1, -1)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +28,7 @@ class PaymentSchemeFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val layout =  inflater.inflate(R.layout.fragment_payment_scheme, container, false)
+        val layout = inflater.inflate(R.layout.fragment_payment_scheme, container, false)
         val bottomButton = layout.findViewById<Button>(R.id.buttomButton)
         val selectPercentage = layout.findViewById<RadioButton>(R.id.selectPercentage)
         val selectRound = layout.findViewById<RadioButton>(R.id.selectRound)
@@ -38,7 +37,8 @@ class PaymentSchemeFragment : Fragment() {
 
         selectPercentage.setOnCheckedChangeListener { _, checked ->
             if (checked) {
-                paymentScheme.type = PaymentScheme.TYPE_PERCENTAGE
+                bottomButton.isEnabled = true
+                selectedPaymentScheme.type = PaymentScheme.TYPE_PERCENTAGE
                 formPercentage.visibility = View.VISIBLE
             } else {
                 formPercentage.visibility = View.GONE
@@ -47,7 +47,8 @@ class PaymentSchemeFragment : Fragment() {
 
         selectRound.setOnCheckedChangeListener { _, checked ->
             if (checked) {
-                paymentScheme.type = PaymentScheme.TYPE_ROUND
+                bottomButton.isEnabled = true
+                selectedPaymentScheme.type = PaymentScheme.TYPE_ROUND
                 formRound.visibility = View.VISIBLE
             } else {
                 formRound.visibility = View.GONE
@@ -61,8 +62,12 @@ class PaymentSchemeFragment : Fragment() {
         return layout
     }
 
+    fun setPaymentScheme(paymentScheme: PaymentScheme) {
+
+    }
+
     fun onButtonPressed() {
-        listener?.onFragmentInteraction(paymentScheme)
+        listener?.onFragmentInteraction(selectedPaymentScheme)
     }
 
     override fun onAttach(context: Context) {
@@ -79,18 +84,19 @@ class PaymentSchemeFragment : Fragment() {
         listener = null
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     *
-     *
-     * See the Android Training lesson [Communicating with Other Fragments]
-     * (http://developer.android.com/training/basics/fragments/communicating.html)
-     * for more information.
-     */
     interface OnFragmentInteractionListener {
         fun onFragmentInteraction(paymentScheme: PaymentScheme)
+    }
+
+
+    companion object {
+        fun forPaymentScheme(paymentScheme: PaymentScheme?): PaymentSchemeFragment {
+            val fragment = PaymentSchemeFragment()
+
+            if (paymentScheme != null)
+                fragment.setPaymentScheme(paymentScheme)
+
+            return fragment
+        }
     }
 }

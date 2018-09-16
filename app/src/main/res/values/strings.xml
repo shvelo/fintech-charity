@@ -13,4 +13,8 @@
     <string name="select_payment_scheme">გადახდის სქემის არჩევა</string>
     <string name="payment_scheme_percentage">პროცენტული</string>
     <string name="payment_scheme_round">დამრგვალება</string>
+    <string name="title_activity_main">ინფორმაცია</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
