@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity(),
             MainFragment.INTERACTION_LOGOUT -> logout()
             MainFragment.INTERACTION_CHANGE_BENEFICIARY -> changeBeneficiary()
             MainFragment.INTERACTION_CHANGE_PAYMENT_SCHEME -> changePaymentScheme()
+            MainFragment.INTERACTION_START_SERVICE -> startService()
         }
     }
 

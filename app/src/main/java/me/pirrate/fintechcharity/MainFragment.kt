@@ -28,6 +28,7 @@ class MainFragment : Fragment() {
     private var selectedPaymentScheme: TextView? = null
     private var logoutButton: Button? = null
     private var bottomButton: Button? = null
+    private var serviceButton: Button? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +41,7 @@ class MainFragment : Fragment() {
         clientName = layout.findViewById(R.id.clientName)
         logoutButton = layout.findViewById(R.id.logoutButton)
         bottomButton = layout.findViewById(R.id.bottomButton)
+        serviceButton = layout.findViewById(R.id.start_service_button)
 
         val includeBeneficiary = layout.findViewById<ViewGroup>(R.id.includeBeneficiary)
 
@@ -53,6 +55,10 @@ class MainFragment : Fragment() {
 
         bottomButton?.setOnClickListener {
             listener?.onFragmentInteraction(INTERACTION_ACTIVATE)
+        }
+
+        serviceButton?.setOnClickListener {
+            listener?.onFragmentInteraction(INTERACTION_START_SERVICE)
         }
 
         val selectPaymentScheme = layout.findViewById<View>(R.id.selectPaymentScheme)
@@ -155,5 +161,6 @@ class MainFragment : Fragment() {
         const val INTERACTION_CHANGE_PAYMENT_SCHEME = "CHANGE_PAYMENT_SCHEME"
         const val INTERACTION_DEACTIVATE = "DEACTIVATE"
         const val INTERACTION_ACTIVATE = "ACTIVATE"
+        const val INTERACTION_START_SERVICE = "START_SERVICE"
     }
 }

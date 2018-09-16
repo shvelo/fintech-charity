@@ -2,6 +2,7 @@ package me.pirrate.fintechcharity.api
 
 import me.pirrate.fintechcharity.api.models.*
 import okhttp3.OkHttpClient
+import okhttp3.ResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Retrofit
@@ -47,5 +48,5 @@ interface FintechAPI {
     fun getAccounts(@Path("sessionId") sessionId: String): Call<List<Account>>
 
     @POST("/api/Transfers/TransferOut")
-    fun transferOut(@Body transferOut: TransferOut): Call<Unit>
+    fun transferOut(@Body transferOut: TransferOut): Call<ResponseBody>
 }

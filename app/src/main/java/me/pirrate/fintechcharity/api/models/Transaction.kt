@@ -1,8 +1,8 @@
 package me.pirrate.fintechcharity.api.models
 
 data class Transaction(
-        val AcctKey: Int,
-        val EntryId: Int,
+        val AcctKey: Long,
+        val EntryId: Long,
         val Nomination: String,
         val EntryGroup: String,
         val MerchantId: String,
@@ -17,7 +17,7 @@ data class Transaction(
         val MerchantNameInt: String,
         val AmountBase: Float,
         val EntryGroupName: String,
-        val EntryGroupNameId: Int,
+        val EntryGroupNameId: Long,
         val ServiceId: String,
         val PostDate: Long
 )
