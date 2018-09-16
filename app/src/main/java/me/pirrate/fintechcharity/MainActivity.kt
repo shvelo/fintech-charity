@@ -65,6 +65,10 @@ class MainActivity : AppCompatActivity(),
         Globals.save(this)
     }
 
+    fun startService() {
+        startService(Intent(this, DailyService::class.java))
+    }
+
     private fun changePaymentScheme() {
         supportFragmentManager.beginTransaction()
                 .replace(R.id.contentFrame, PaymentSchemeFragment.forPaymentScheme(Globals.paymentScheme))
