@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">Fintech Charity</string>
-
-    <!-- Strings related to login -->
     <string name="prompt_username">მომხმარებლის სახელი</string>
     <string name="prompt_password">პაროლი</string>
     <string name="action_sign_in">შესვლა</string>
@@ -12,4 +10,7 @@
     <string name="action_next">შემდეგ</string>
     <string name="action_back">უკან</string>
     <string name="select_beneficiary">ბენეფიციარის არჩევა</string>
+    <string name="select_payment_scheme">გადახდის სქემის არჩევა</string>
+    <string name="payment_scheme_percentage">პროცენტული</string>
+    <string name="payment_scheme_round">დამრგვალება</string>
 </resources>

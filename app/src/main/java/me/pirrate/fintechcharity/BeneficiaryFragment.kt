@@ -1,7 +1,6 @@
 package me.pirrate.fintechcharity
 
 import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -15,6 +14,7 @@ import me.pirrate.fintechcharity.api.models.Beneficiary
 
 class BeneficiaryFragment : Fragment() {
     private var listener: OnFragmentInteractionListener? = null
+    private var selectedBeneficiary: Beneficiary? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +23,7 @@ class BeneficiaryFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val layout = inflater.inflate(R.layout.fragment_beneficiary, container, false)
-        val buttomButton = layout.findViewById<Button>(R.id.buttomButton)
+        val bottomButton = layout.findViewById<Button>(R.id.buttomButton)
         val beneficiaryAdapter = BeneficiaryAdapter(PrototypeHelpers.getBeneficiaries())
         val beneficiaryList = layout.findViewById<RecyclerView>(R.id.beneficiaryList)
 
@@ -31,14 +31,20 @@ class BeneficiaryFragment : Fragment() {
         beneficiaryList.layoutManager = LinearLayoutManager(context)
 
         beneficiaryAdapter.onItemSelectedListener = {
-            buttomButton.isEnabled = true
+            selectedBeneficiary = it
+            bottomButton.isEnabled = true
+        }
+
+        bottomButton.setOnClickListener {
+            onButtonPressed()
         }
 
         return layout
     }
 
-    fun onButtonPressed(uri: Uri) {
-        listener?.onFragmentInteraction(uri)
+    fun onButtonPressed() {
+        if (selectedBeneficiary != null)
+            listener?.onFragmentInteraction(selectedBeneficiary!!)
     }
 
     override fun onAttach(context: Context) {
@@ -55,18 +61,7 @@ class BeneficiaryFragment : Fragment() {
         listener = null
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     *
-     *
-     * See the Android Training lesson [Communicating with Other Fragments]
-     * (http://developer.android.com/training/basics/fragments/communicating.html)
-     * for more information.
-     */
     interface OnFragmentInteractionListener {
-        fun onFragmentInteraction(uri: Uri)
+        fun onFragmentInteraction(beneficiary: Beneficiary)
     }
 }
