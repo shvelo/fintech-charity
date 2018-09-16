@@ -26,4 +26,5 @@
     <string name="selectRound1">1 ლარამდე</string>
     <string name="selectRound5">5 ლარამდე</string>
     <string name="action_save">შენახვა</string>
+    <string name="action_start_service">სერვისის ჩართვა</string>
 </resources>
